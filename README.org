@@ -7,4 +7,4 @@
 
   I don't want to reconfigure next time, so I need to backup in here.
 
-  [[splash.png]]
+  [[splash-inverted.png]]
