@@ -34,56 +34,56 @@
 * GENERAL KEYBINDINGS
 
   #+begin_src emacs-lisp
-    (use-package general
-	:ensure t
-	:config
-    (general-evil-setup t))
+    ;;(use-package general
+	;;:ensure t
+	;;:config
+    ;;(general-evil-setup t))
 
-    (nvmap :prefix "SPC"
-	"SPC"    '(counsel-M-x :which-key "M-x")
-	"."      '(find-file :which-key "Find file")
+    ;;(nvmap :prefix "SPC"
+	;;"SPC"    '(counsel-M-x :which-key "M-x")
+	;;"."      '(find-file :which-key "Find file")
 	;; Buffers
-	"b b"    '(ibuffer :which-key "Ibuffer")
-	"b B"    '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
-	"b d"    '(kill-current-buffer :which-key "Kill current buffer")
-	"b D"    '(kill-buffer :which-key "Kill buffer")
-	"b n"    '(next-buffer :which-key "Next buffer")
-	"b p"    '(previous-buffer :which-key "Previous buffer")
+	;;"b b"    '(ibuffer :which-key "Ibuffer")
+	;;"b B"    '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
+	;;"b d"    '(kill-current-buffer :which-key "Kill current buffer")
+	;;"b D"    '(kill-buffer :which-key "Kill buffer")
+	;;"b n"    '(next-buffer :which-key "Next buffer")
+	;;"b p"    '(previous-buffer :which-key "Previous buffer")
 	;; Eshell
-	"e h"    '(counsel-esh-history :which-key "Eshell history")
-	"e s"    '(eshell :which-key "Eshell")
-	"f r"    '(counsel-recentf :which-key "Recent files")
-	"h r r"  '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
-	"t t"    '(toggle-truncate-lines :which-key "Toggle truncate lines")
+	;;"e h"    '(counsel-esh-history :which-key "Eshell history")
+	;;"e s"    '(eshell :which-key "Eshell")
+	;;"f r"    '(counsel-recentf :which-key "Recent files")
+	;;"h r r"  '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
+	;;"t t"    '(toggle-truncate-lines :which-key "Toggle truncate lines")
 	;; Window splits
-	"w c"    '(evil-window-delete :which-key "Close window")
-	"w n"    '(evil-window-new :which-key "New window")
-	"w s"    '(evil-window-split :which-key "Horizontal split window")
-	"w v"    '(evil-window-vsplit :which-key "Vertical split window")
+	;;"w c"    '(evil-window-delete :which-key "Close window")
+	;;"w n"    '(evil-window-new :which-key "New window")
+	;;"w s"    '(evil-window-split :which-key "Horizontal split window")
+	;;"w v"    '(evil-window-vsplit :which-key "Vertical split window")
 	;; Window motions
-	"w h"    '(evil-window-left :which-key "Window left")
-	"w j"    '(evil-window-down :which-key "Window down")
-	"w k"    '(evil-window-up :which-key "Window up")
-	"w l"    '(evil-window-right :which-key "Window right")
-	"w w"    '(evil-window-next :which-key "Go to next window"))
+	;;"w h"    '(evil-window-left :which-key "Window left")
+	;;"w j"    '(evil-window-down :which-key "Window down")
+	;;"w k"    '(evil-window-up :which-key "Window up")
+	;;"w l"    '(evil-window-right :which-key "Window right")
+	;;"w w"    '(evil-window-next :which-key "Go to next window"))
   #+end_src
 
 * EVIL
 
   #+begin_src emacs-lisp
-    (use-package evil
-	:ensure t ;; install evil if not installed
-	:init     ;; tweak evil's configuration before loading it
-	(setq evil-want-integration t) ;; This is optional since it's already set to t by default
-	(setq evil-want-keybinding nil)
-	(setq evil-vsplit-window-right t)
-	(setq evil-split-window-below t)
-	(evil-mode))
-    (use-package evil-collection
-	:after evil
-	:ensure t
-	:config
-	(evil-collection-init))
+    ;;(use-package evil
+	;;:ensure t ;; install evil if not installed
+	;;:init     ;; tweak evil's configuration before loading it
+	;;(setq evil-want-integration t) ;; This is optional since it's already set to t by default
+	;;(setq evil-want-keybinding nil)
+	;;(setq evil-vsplit-window-right t)
+	;;(setq evil-split-window-below t)
+	;;(evil-mode))
+    ;;(use-package evil-collection
+	;;:after evil
+	;;:ensure t
+	;;:config
+	;;(evil-collection-init))
   #+end_src
 
 * FONT
