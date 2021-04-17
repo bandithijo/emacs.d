@@ -6,3 +6,5 @@
   This is my Emacs configuration backup repository. It is not done yet. I'm just prepare for the borring stuff, such as: Package Manager, Fonts, Theme, Modeline, Keybindings, etc.
 
   I don't want to reconfigure next time, so I need to backup in here.
+
+  [[splash.png]]
