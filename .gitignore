@@ -2,6 +2,7 @@ auto-save-list/
 elpa/
 eshell/
 url/
+tutorial/
 config.el
 projectile-bookmarks.eld
 recentf
