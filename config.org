@@ -1,0 +1,252 @@
+#+TITLE: BanditHijo's Emacs Config
+#+AUTHOR: Rizqi Nur Assyaufi
+
+* PACKAGE MANAGEMENT
+
+  ** Setup package.el to work with MELPA
+
+  #+begin_src emacs-lisp
+    (require 'package)
+    (add-to-list 'package-archives
+		 '("melpa" . "https://melpa.org/packages/"))
+    (package-refresh-contents)
+    (package-initialize)
+  #+end_src
+
+  ** Installing use-package
+
+  #+begin_src emacs-lisp
+    (unless (package-installed-p 'use-package)
+        (package-install 'use-package))
+  #+end_src
+
+* BACKUP LOCATION
+
+  #+begin_src emacs-lisp
+    (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+        backup-by-copying t    ;; don't delink hardlinks
+        version-control t      ;; use version numbers on backups
+        delete-old-versions t  ;; automatically delete excess backups
+        kept-new-versions 20   ;; how many of the newest versions to keep
+        kept-old-versions 5)   ;; and how many of the old
+  #+end_src
+
+* GENERAL KEYBINDINGS
+
+  #+begin_src emacs-lisp
+    (use-package general
+	:ensure t
+	:config
+    (general-evil-setup t))
+
+    (nvmap :prefix "SPC"
+	"SPC"    '(counsel-M-x :which-key "M-x")
+	"."      '(find-file :which-key "Find file")
+	;; Buffers
+	"b b"    '(ibuffer :which-key "Ibuffer")
+	"b B"    '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
+	"b d"    '(kill-current-buffer :which-key "Kill current buffer")
+	"b D"    '(kill-buffer :which-key "Kill buffer")
+	"b n"    '(next-buffer :which-key "Next buffer")
+	"b p"    '(previous-buffer :which-key "Previous buffer")
+	;; Eshell
+	"e h"    '(counsel-esh-history :which-key "Eshell history")
+	"e s"    '(eshell :which-key "Eshell")
+	"f r"    '(counsel-recentf :which-key "Recent files")
+	"h r r"  '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
+	"t t"    '(toggle-truncate-lines :which-key "Toggle truncate lines")
+	;; Window splits
+	"w c"    '(evil-window-delete :which-key "Close window")
+	"w n"    '(evil-window-new :which-key "New window")
+	"w s"    '(evil-window-split :which-key "Horizontal split window")
+	"w v"    '(evil-window-vsplit :which-key "Vertical split window")
+	;; Window motions
+	"w h"    '(evil-window-left :which-key "Window left")
+	"w j"    '(evil-window-down :which-key "Window down")
+	"w k"    '(evil-window-up :which-key "Window up")
+	"w l"    '(evil-window-right :which-key "Window right")
+	"w w"    '(evil-window-next :which-key "Go to next window"))
+  #+end_src
+
+* EVIL
+
+  #+begin_src emacs-lisp
+    (use-package evil
+	:ensure t ;; install evil if not installed
+	:init     ;; tweak evil's configuration before loading it
+	(setq evil-want-integration t) ;; This is optional since it's already set to t by default
+	(setq evil-want-keybinding nil)
+	(setq evil-vsplit-window-right t)
+	(setq evil-split-window-below t)
+	(evil-mode))
+    (use-package evil-collection
+	:after evil
+	:ensure t
+	:config
+	(evil-collection-init))
+  #+end_src
+
+* FONT
+
+  ** Setup default font
+
+  #+begin_src emacs-lisp
+    (set-face-attribute 'default nil
+	:font "JetBrainsMono Nerd Font Bandit 8"
+	:weight 'medium)
+    (set-face-attribute 'variable-pitch nil
+	:font "JetBrainsMono Nerd Font Bandit 8"
+	:weight 'medium)
+    (set-face-attribute 'fixed-pitch nil
+	:font "JetBrainsMono Nerd Font Bandit 8"
+	:weight 'medium)
+
+    ;;(setq-default line-spacing 0.10)
+
+    ;; Needed if using emacsclient. Otherwise, your font will be smaller than expected.
+    (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font Bandit 8"))
+  #+end_src
+
+  ** Zooming in and out
+
+  You can use the bindings CTRL plus =/- for zooming in/out. You can also use CTRL plus the mouse wheel.
+
+  #+begin_src emacs-lisp
+    ;; Zoom in/out like we do everywhere else.
+    (global-set-key (kbd "C-=") 'text-scale-increase)
+    (global-set-key (kbd "C--") 'text-scale-decrease)
+    ;;(global-set-key (kbd "C-0")'(lambda () (interactive) (text-scale-adjust 0)))
+    (global-set-key (kbd "<C-wheel-up>")   'text-scale-increase)
+    (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+  #+end_src
+
+* GRAPHICAL USER INTERFACE SETTINGS
+
+  ** Disable Menu, Toolbar and Scrollbar
+
+  #+begin_src emacs-lisp
+    (menu-bar-mode   -1)
+    (tool-bar-mode   -1)
+    (scroll-bar-mode -1)
+  #+end_src
+
+  ** Display Line Numbers and Truncated Lines
+
+  #+begin_src emacs-lisp
+    (global-display-line-numbers-mode 1)
+    (setq display-line-numbers-type 'relative)
+    (global-visual-line-mode t)
+  #+end_src
+
+  ** Display Current Line
+
+  #+begin_src emacs-lisp
+    (global-hl-line-mode -1)
+  #+end_src
+
+* THEME
+
+  #+begin_src emacs-lisp
+    (use-package solaire-mode
+        :ensure t
+        :hook ((change-major-mode . turn-on-solaire-mode)
+               (after-revert . turn-on-solaire-mode)
+               (ediff-prepare-buffer . solaire-mode)
+               (minibuffer-setup . solaire-mode-in-minibuffer))
+        :config
+        (add-to-list 'solaire-mode-themes-to-face-swap '"vscode-dark-plus")
+        (setq solaire-mode-auto-swap-bg t)
+        (solaire-global-mode +1))
+      
+    (use-package vscode-dark-plus-theme
+	:ensure t
+        :after solaire-mode
+	:config
+	(load-theme 'vscode-dark-plus t))
+
+    ;;(use-package doom-themes
+        ;;:config
+        ;; Global settings (defaults)
+        ;;(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+              ;;doom-themes-enable-italic t) ; if nil, italics is universally disabled
+        ;;(load-theme 'doom-dark+ t)
+    
+        ;; Enable flashing mode-line on errors
+        ;;(doom-themes-visual-bell-config)
+        
+        ;; Enable custom neotree theme (all-the-icons must be installed!)
+        ;;(doom-themes-neotree-config)
+        ;; or for treemacs users
+        ;;(setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+        ;;(doom-themes-treemacs-config)
+        
+        ;; Corrects (and improves) org-mode's native fontification.
+        ;;(doom-themes-org-config))
+  #+end_src
+
+* MODELINE
+
+  ** Doom-Modeline
+  
+  #+begin_src emacs-lisp
+    ;;(use-package doom-modeline
+	;;:ensure t
+	;;:init (doom-modeline-mode 1))
+
+    ;; How tall the mode-line should be. It's only respected in GUI.
+    ;; If the actual char height is larger, it respects the actual height.
+    ;;(setq doom-modeline-height 20)
+
+    ;; Whether display the indentation information.
+    ;;(setq doom-modeline-indent-info nil)
+
+    ;; Whether display the colorful icon for `major-mode'.
+    ;; It respects `all-the-icons-color-icons'.
+    ;;(setq doom-modeline-major-mode-color-icon nil)
+
+    ;; Whether display the modal state icon.
+    ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc.
+    ;;(setq doom-modeline-modal-icon t)
+  #+end_src
+
+* WHICH KEY
+  
+  #+begin_src emacs-lisp
+    (use-package which-key
+	:ensure t)
+    (which-key-mode)
+  #+end_src
+
+* PROJECTILE
+
+  #+begin_src emacs-lisp
+    (use-package projectile
+        :ensure t
+	:config
+	(projectile-global-mode 1))
+  #+end_src
+
+* DASHBOARD
+
+  Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items, and an Emacs banner.
+
+  #+begin_src emacs-lisp
+    (use-package dashboard
+         :ensure t ;; install dashboard if not installer
+         :init     ;; tweak dashboard config before loading it
+         (setq dashboard-set-heading-icons nil)
+         (setq dashboard-set-file-icons nil)
+         (setq dashboard-banner-logo-title "Emacs is More Than a Text Editor!")
+         ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
+         (setq dashboard-startup-banner "~/.emacs.d/splash.png") ;; use custom image as banner
+         (setq dashboard-center-content nil) ;; set to 't' for centered content
+         (setq dashboard-item '((recents . 10)
+                                (agenda . 5)
+                                (bookmarks . 5)
+                                (projects . 5)
+                                (registers . 5)))
+         :config
+         (dashboard-setup-startup-hook)
+         (dashboard-modify-heading-icons '((recents . "file-text")
+                                           (bookmarks . "bool"))))
+  #+end_src

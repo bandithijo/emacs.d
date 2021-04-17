@@ -1,0 +1,8 @@
+auto-save-list/
+backup/
+elpa/
+eshell/
+url/
+config.el
+projectile-bookmarks.eld
+recentf
