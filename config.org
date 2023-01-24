@@ -92,19 +92,19 @@
 
   #+begin_src emacs-lisp
     (set-face-attribute 'default nil
-	:font "JetBrainsMono Nerd Font Bandit 8"
+	:font "JetBrainsMono Nerd Font Bandit 13"
 	:weight 'medium)
     (set-face-attribute 'variable-pitch nil
-	:font "JetBrainsMono Nerd Font Bandit 8"
+	:font "JetBrainsMono Nerd Font Bandit 13"
 	:weight 'medium)
     (set-face-attribute 'fixed-pitch nil
-	:font "JetBrainsMono Nerd Font Bandit 8"
+	:font "JetBrainsMono Nerd Font Bandit 13"
 	:weight 'medium)
 
     ;;(setq-default line-spacing 0.10)
 
     ;; Needed if using emacsclient. Otherwise, your font will be smaller than expected.
-    (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font Bandit 8"))
+    (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font Bandit 13"))
   #+end_src
 
   ** Zooming in and out
